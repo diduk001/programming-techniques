@@ -1,2 +1,4 @@
 */bin/*
 */doxygen/*
+**/__pycache__
+**/generated/**
