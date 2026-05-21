@@ -158,6 +158,21 @@ struct Sportsman
     }
 
     /**
+     * @brief Вывод в строку в формате CSV (вид спорта, фамилия, имя, отчество, возраст, рост, вес)
+     * @return Строка в формате CSV
+     */
+    std::string to_csv() const
+    {
+        return sport + "," +
+               full_name.last_name + "," +
+               full_name.first_name + "," +
+               full_name.middle_name + "," +
+               std::to_string(age) + "," +
+               std::to_string(height_cm) + "," +
+               std::to_string(weight_kg);
+    }
+
+    /**
      * @brief Проверяет равенство двух спортсменов (сравнение по полям – вид  спорта, ФИО, возраст)
      * @param[other] Спортсмен для сравнения
      * @return true, если спортсмены совпадают, иначе false
