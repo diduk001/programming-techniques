@@ -101,6 +101,63 @@ struct Sportsman
     std::string sport;        /**< Спорт, которым занимается спортсмен */
 
     /**
+     * @brief Конструктор, который инициализирует поля структуры на основе строки в формате CSV (вид спорта, фамилия, имя, отчество, возраст, рост, вес)
+     * @param[csv_string] Строка в формате CSV
+     * @return Инициализированный объект структуры Sportsman
+     * @exception std::invalid_argument, если строка не содержит достаточного количества полей или если возраст, рост или вес не являются числовыми значениями
+     */
+    Sportsman(std::string csv_string)
+    {
+        size_t pos = 0;
+        std::string token;
+        std::string delimiter = ",";
+        int field_index = 0;
+
+        for (int field_idx = 0; field_idx < 7; field_idx++)
+        {
+            pos = csv_string.find(delimiter);
+            if (pos == std::string::npos)
+            {
+                if (field_idx != 6)
+                {
+                    throw std::invalid_argument("Недостаточно полей в CSV строке");
+                }
+                token = csv_string;
+            }
+            else
+            {
+                token = csv_string.substr(0, pos);
+                csv_string.erase(0, pos + delimiter.length());
+            }
+
+            switch (field_idx)
+            {
+            case 0:
+                sport = token;
+                break;
+            case 1:
+                full_name.last_name = token;
+                break;
+            case 2:
+                full_name.first_name = token;
+                break;
+            case 3:
+                full_name.middle_name = token;
+                break;
+            case 4:
+                age = (unsigned short)std::stoul(token);
+                break;
+            case 5:
+                height_cm = (unsigned short)std::stoul(token);
+                break;
+            case 6:
+                weight_kg = (unsigned short)std::stoul(token);
+                break;
+            }
+        }
+    }
+
+    /**
      * @brief Проверяет равенство двух спортсменов (сравнение по полям – вид  спорта, ФИО, возраст)
      * @param[other] Спортсмен для сравнения
      * @return true, если спортсмены совпадают, иначе false
