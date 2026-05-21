@@ -124,6 +124,10 @@ struct Sportsman
                 }
                 token = csv_string;
             }
+            else if (field_idx == 6)
+            {
+                throw std::invalid_argument("Слишком много полей в CSV строке");
+            }
             else
             {
                 token = csv_string.substr(0, pos);
@@ -154,10 +158,6 @@ struct Sportsman
                 weight_kg = (unsigned short)std::stoul(token);
                 break;
             }
-        }
-        if (csv_string.find(delimiter) != std::string::npos)
-        {
-            throw std::invalid_argument("Слишком много полей в CSV строке");
         }
     }
 
