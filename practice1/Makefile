@@ -1,7 +1,8 @@
 .PHONY: build run clean doxygen latex
 
 build:
-	g++ -o bin/main src/main.cpp
+	mkdir -p bin
+	g++ -o bin/main src/main.cpp src/utils.cpp
 
 run: build
 	./bin/main
