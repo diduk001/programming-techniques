@@ -104,7 +104,7 @@ struct Sportsman
      * @brief Конструктор, который инициализирует поля структуры на основе строки в формате CSV (вид спорта, фамилия, имя, отчество, возраст, рост, вес)
      * @param[csv_string] Строка в формате CSV
      * @return Инициализированный объект структуры Sportsman
-     * @exception std::invalid_argument, если строка не содержит достаточного количества полей или если возраст, рост или вес не являются числовыми значениями
+     * @exception std::invalid_argument, если строка не является корректной CSV строкой или содержит некорректные данные
      */
     Sportsman(std::string csv_string)
     {
@@ -154,6 +154,10 @@ struct Sportsman
                 weight_kg = (unsigned short)std::stoul(token);
                 break;
             }
+        }
+        if (csv_string.find(delimiter) != std::string::npos)
+        {
+            throw std::invalid_argument("Слишком много полей в CSV строке");
         }
     }
 
