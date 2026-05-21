@@ -1,4 +1,4 @@
-.PHONY: build run clean doxygen docs
+.PHONY: build run clean doxygen docs generate
 
 build:
 	mkdir -p bin
@@ -19,3 +19,6 @@ docs: doxygen
 	cd doxygen/latex && make
 	cd ../..
 	cp doxygen/latex/refman.pdf ./docs.pdf
+
+generate:
+	tests/main.py
