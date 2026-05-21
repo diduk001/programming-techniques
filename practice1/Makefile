@@ -15,7 +15,7 @@ clean:
 doxygen:
 	doxygen Doxyfile
 
-latex: doxygen
+docs: doxygen
 	cd doxygen/latex && make
 	cd ../..
 	cp doxygen/latex/refman.pdf ./docs.pdf
