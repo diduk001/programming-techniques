@@ -2,7 +2,7 @@
 
 build:
 	mkdir -p bin
-	g++ -o bin/main src/main.cpp src/utils.cpp
+	g++ -o bin/main src/main.cpp src/utils.cpp src/sorting.cpp
 
 run: build
 	./bin/main
