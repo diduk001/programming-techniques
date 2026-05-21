@@ -7,9 +7,10 @@
 
 #include "sportsman.h"
 #include <chrono>
-#include <vector>
-#include <iostream>
 #include <functional>
+#include <iostream>
+#include <string>
+#include <vector>
 
 /**
  * @brief Прочитать вектор спортсменов из CSV файла
@@ -29,6 +30,6 @@ void to_csv_file(const std::vector<Sportsman> &data, const std::string &filename
  * @brief Измерение времени сортировки
  * @param sort_func Функция сортировки (void(std::vector<Sportsman>&))
  * @param source Вектор спортсменов для сортировки
- * @return Время сортировки (в милисекундах)
+ * @return Время сортировки (в миллисекундах)
  */
 double measure_time_ms(std::function<void(std::vector<Sportsman> &)> sort_func, const std::vector<Sportsman> &source);

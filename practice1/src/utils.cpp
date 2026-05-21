@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 std::vector<Sportsman> from_csv_file(const std::string &filename)
 {
@@ -11,7 +12,6 @@ std::vector<Sportsman> from_csv_file(const std::string &filename)
     if (!file.is_open())
     {
         throw std::runtime_error("Не удалось открыть файл: " + filename);
-        return data;
     }
 
     std::string line;
@@ -26,6 +26,10 @@ std::vector<Sportsman> from_csv_file(const std::string &filename)
 void to_csv_file(const std::vector<Sportsman> &data, const std::string &filename)
 {
     std::ofstream file(filename);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Не удалось открыть файл для записи: " + filename);
+    }
     file << "sport,last_name,first_name,middle_name,age,height_cm,weight_kg\n";
     for (const auto &rec : data)
     {
