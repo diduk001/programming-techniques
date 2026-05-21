@@ -1,8 +1,7 @@
-#!python3
+#!/usr/bin/env python3
 
 from generate import generate_test_data
 import pathlib
-import subprocess
 
 TEST_SIZES = (
     100,
@@ -11,19 +10,24 @@ TEST_SIZES = (
     1000,
     2500,
     5000,
-    25000,
     10000,
-    250000,
+    25000,
     50000,
     100000,
     250000,
+    500000,
 )
 
 
 def generate():
     for size in TEST_SIZES:
         sportsmen = generate_test_data(size)
-        path = pathlib.Path(__file__).parent / pathlib.Path("generated") / f"test_{size}.csv"
+        path = (
+            pathlib.Path(__file__).parent
+            / pathlib.Path("generated")
+            / f"test_{size}.csv"
+        )
+        path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("w") as f:
             f.write("sport,last_name,first_name,middle_name,age,height,weight\n")
             for sportsman in sportsmen:
