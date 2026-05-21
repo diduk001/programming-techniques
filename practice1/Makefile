@@ -1,4 +1,4 @@
-.PHONY: build run clean doxygen latex
+.PHONY: build run clean doxygen docs
 
 build:
 	mkdir -p bin
