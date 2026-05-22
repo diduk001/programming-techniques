@@ -450,13 +450,15 @@ struct HashTable
     }
 };
 
-std::vector<int> hash_table_search(const std::vector<Sportsman> &sportsmen, const Sportsman &target)
+std::vector<int> hash_table_search(const std::vector<Sportsman> &sportsmen, const Sportsman &target, unsigned int &collisions, unsigned int &total_insertions)
 {
     HashTable ht;
     for (int i = 0; i < (int)sportsmen.size(); ++i)
     {
         ht.insert(sportsmen[i], i);
     }
+    collisions = ht.collisions_cnt;
+    total_insertions = ht.total_insertions;
     return ht.search(target);
 }
 
