@@ -1,4 +1,4 @@
-.PHONY: build run clean doxygen docs generate plot
+.PHONY: build run clean doxygen docs generate plot report
 
 build:
 	mkdir -p bin
@@ -29,3 +29,6 @@ test:
 
 plot:
 	tests/plot.py
+
+report: docs.pdf sorting_performance.png
+	tests/report.py
