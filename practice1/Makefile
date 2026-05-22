@@ -1,4 +1,4 @@
-.PHONY: build run clean doxygen docs generate
+.PHONY: build run clean doxygen docs generate plot
 
 build:
 	mkdir -p bin
@@ -26,3 +26,6 @@ generate:
 
 test:
 	tests/test.py
+
+plot:
+	tests/plot.py
