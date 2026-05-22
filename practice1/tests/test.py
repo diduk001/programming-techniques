@@ -34,11 +34,15 @@ def test_with_file(
 def main():
     results = []
     for test_file in (Path(__file__).parent / "generated").glob("test_*.csv"):
+        print(f"Testing with {test_file}...")
         num_sportsmen = test_file.stem.split("_")[1]
         executable = Path(__file__).parent.parent / "bin" / "main"
         timings = test_with_file(executable, test_file)
         results.append((num_sportsmen, timings[0], timings[1], timings[2], timings[3]))
 
+    results.sort(key=lambda x: int(x[0]))  # Sort by number of sportsmen
+
+    print("Writing results to CSV...")
     writer = csv.writer(open(Path(__file__).parent / "results.csv", "w"))
     writer.writerow(
         [
@@ -50,6 +54,7 @@ def main():
         ]
     )
     writer.writerows(results)
+    print("Done.")
 
 
 if __name__ == "__main__":
