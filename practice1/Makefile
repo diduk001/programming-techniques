@@ -21,4 +21,4 @@ docs: doxygen
 	cp doxygen/latex/refman.pdf ./docs.pdf
 
 generate:
-	tests/main.py
+	tests/generate.py
