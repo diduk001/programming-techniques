@@ -9,6 +9,7 @@ run: build
 
 clean:
 	rm -rf bin/*
+	rm -rf tests/generated/*
 	cd doxygen/latex && make clean
 	cd ../..
 
@@ -22,3 +23,6 @@ docs: doxygen
 
 generate:
 	tests/generate.py
+
+test:
+	tests/test.py
