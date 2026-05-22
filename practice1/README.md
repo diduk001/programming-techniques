@@ -29,3 +29,12 @@
 Генерируется с помощью `make docs`
 - [Doxyfile](./Doxyfile)
 - [docs.pdf](./docs.pdf)
+
+# Тестирование
+
+Тестирование происходит на Python в три этапа:
+1) `make generate` - запускает скрипт [generate.py](./tests/generate.py), который генерирует CSV-файлы разных размеров в ./tests/generated
+2) `make test` - запускает скрипт [test.py](./tests/test.py), который запускает ./bin/main на тестах и записывает результат в [results.csv](./tests/results.csv)
+3) `make plot` - запускает скрипт [plot.py](./tests/plot.py), который отображает график на экране и сохраняет его в [sorting_performance.png](./sorting_performance.png)
+
+![Sorting performance plot](./sorting_performance.png)
