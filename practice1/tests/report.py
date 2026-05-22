@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Generates report.pdf: cover page (plot + repo link) followed by docs.pdf."""
+"""Generates report.pdf: cover page (plot + repo link), README.md, then docs.pdf."""
 
 import pathlib
+import re
 import sys
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
-from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Preformatted
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from pypdf import PdfWriter, PdfReader
@@ -21,6 +22,7 @@ REPO_URL = "https://github.com/diduk001/programming-techniques/tree/main/practic
 BASE = pathlib.Path(__file__).parent.parent
 PLOT = BASE / "sorting_performance.png"
 DOCS = BASE / "docs.pdf"
+README = BASE / "README.md"
 OUT = BASE / "report.pdf"
 
 
@@ -58,9 +60,78 @@ def build_cover() -> bytes:
     return buf.getvalue()
 
 
+def build_readme() -> bytes:
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=A4,
+        topMargin=2 * cm,
+        bottomMargin=2 * cm,
+        leftMargin=2 * cm,
+        rightMargin=2 * cm,
+    )
+    styles = getSampleStyleSheet()
+
+    h1_style = ParagraphStyle("MdH1", parent=styles["Heading1"], fontName=_FONT_NAME, fontSize=16, spaceAfter=6)
+    h2_style = ParagraphStyle("MdH2", parent=styles["Heading2"], fontName=_FONT_NAME, fontSize=13, spaceAfter=4)
+    body_style = ParagraphStyle("MdBody", parent=styles["Normal"], fontName=_FONT_NAME, fontSize=10, spaceAfter=4)
+    code_style = ParagraphStyle(
+        "MdCode", parent=styles["Code"], fontName="Courier", fontSize=9,
+        backColor="#f0f0f0", leftIndent=12, spaceAfter=4,
+    )
+    bullet_style = ParagraphStyle(
+        "MdBullet", parent=styles["Normal"], fontName=_FONT_NAME, fontSize=10,
+        leftIndent=16, spaceAfter=2,
+    )
+
+    text = README.read_text(encoding="utf-8")
+    story = []
+    in_code = False
+    code_lines = []
+
+    for line in text.splitlines():
+        if line.startswith("```"):
+            if in_code:
+                story.append(Preformatted("\n".join(code_lines), code_style))
+                code_lines = []
+                in_code = False
+            else:
+                in_code = True
+            continue
+        if in_code:
+            code_lines.append(line)
+            continue
+
+        if line.startswith("# "):
+            story.append(Paragraph(line[2:], h1_style))
+        elif line.startswith("## "):
+            story.append(Paragraph(line[3:], h2_style))
+        elif line.startswith("- ") or line.startswith("* "):
+            content = line[2:]
+            # render inline code in bullets
+            content = re.sub(r"`([^`]+)`", r'<font name="Courier">\1</font>', content)
+            story.append(Paragraph(f"• {content}", bullet_style))
+        elif line.startswith("!["):
+            # skip embedded images (already on cover page)
+            pass
+        elif line.strip() == "":
+            story.append(Spacer(1, 0.3 * cm))
+        else:
+            content = line
+            content = re.sub(r"`([^`]+)`", r'<font name="Courier">\1</font>', content)
+            # bold
+            content = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", content)
+            story.append(Paragraph(content, body_style))
+
+    doc.build(story)
+    return buf.getvalue()
+
+
 def main():
     if not PLOT.exists():
         sys.exit(f"Missing: {PLOT}")
+    if not README.exists():
+        sys.exit(f"Missing: {README}")
     if not DOCS.exists():
         sys.exit(f"Missing: {DOCS}")
 
@@ -69,6 +140,11 @@ def main():
     cover_bytes = build_cover()
     cover_reader = PdfReader(io.BytesIO(cover_bytes))
     for page in cover_reader.pages:
+        writer.add_page(page)
+
+    readme_bytes = build_readme()
+    readme_reader = PdfReader(io.BytesIO(readme_bytes))
+    for page in readme_reader.pages:
         writer.add_page(page)
 
     docs_reader = PdfReader(str(DOCS))
