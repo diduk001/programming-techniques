@@ -10,6 +10,10 @@ run: build
 clean:
 	rm -rf bin/*
 	rm -rf tests/generated/*
+	rm -rf tests/results.csv
+	rm -rf sorting_performance.png
+	rm -rf report.pdf
+	rm -rf docs.pdf
 	cd doxygen/latex && make clean
 	cd ../..
 
