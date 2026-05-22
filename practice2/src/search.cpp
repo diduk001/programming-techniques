@@ -13,7 +13,7 @@
 std::vector<int> linear_search(const std::vector<Sportsman> &sportsmen, const Sportsman &target)
 {
     std::vector<int> indices;
-    for (size_t i = 0; i < sportsmen.size(); ++i)
+    for (int i = 0; i < sportsmen.size(); ++i)
     {
         if (sportsmen[i] == target)
         {
