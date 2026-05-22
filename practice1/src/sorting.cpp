@@ -5,7 +5,7 @@
 
 void insertion_sort(std::vector<Sportsman> &vec)
 {
-    for (size_t i = 1; i < vec.size(); ++i)
+    for (int i = 1; i < vec.size(); ++i)
     {
         Sportsman key = vec[i];
         int j = i - 1;
@@ -18,11 +18,11 @@ void insertion_sort(std::vector<Sportsman> &vec)
     }
 }
 
-void heapify(std::vector<Sportsman> &vec, size_t n, size_t i)
+void heapify(std::vector<Sportsman> &vec, int n, int i)
 {
-    size_t largest = i;
-    size_t left = 2 * i + 1;
-    size_t right = 2 * i + 2;
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
     if (left < n && vec[left] > vec[largest])
     {
@@ -41,7 +41,7 @@ void heapify(std::vector<Sportsman> &vec, size_t n, size_t i)
 
 void heap_sort(std::vector<Sportsman> &vec)
 {
-    size_t n = vec.size();
+    int n = vec.size();
     for (int i = n / 2 - 1; i >= 0; --i)
     {
         heapify(vec, n, i);

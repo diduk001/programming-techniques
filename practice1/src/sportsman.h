@@ -109,7 +109,7 @@ struct Sportsman
      */
     Sportsman(std::string csv_string)
     {
-        size_t pos = 0;
+        int pos = 0;
         std::string token;
         std::string delimiter = ",";
         int field_index = 0;
