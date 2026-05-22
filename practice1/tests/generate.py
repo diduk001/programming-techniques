@@ -13,15 +13,16 @@ TEST_SIZES = (
     100,
     250,
     500,
+    750,
     1000,
     2500,
     5000,
+    7500,
     10000,
     25000,
     50000,
+    75000,
     100000,
-    250000,
-    500000,
 )
 
 FIRST_NAMES = (
@@ -140,7 +141,9 @@ def generate_test_data(num_sportsmen: int):
 
 
 def main():
+    print("Generating test data...")
     for size in TEST_SIZES:
+        print("Generating data for size:", size)
         sportsmen = generate_test_data(size)
         path = Path(__file__).parent / Path("generated") / f"test_{size}.csv"
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -148,6 +151,7 @@ def main():
             f.write("sport,last_name,first_name,middle_name,age,height,weight\n")
             for sportsman in sportsmen:
                 f.write(f"{sportsman.to_csv()}\n")
+    print(f"Done generating {len(TEST_SIZES)} test files.")
 
 
 if __name__ == "__main__":
