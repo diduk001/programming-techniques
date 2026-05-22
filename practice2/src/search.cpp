@@ -401,8 +401,8 @@ unsigned short hash_sportsman(const Sportsman &value)
 struct HashTable
 {
     std::vector<std::pair<Sportsman, int>> buckets_indices[USHRT_MAX]; /**< Массив бакетов для хранения спортсменов и индексов */
-    unsigned int collisions_cnt;                                       /**< Счетчик коллизий при вставке спортсменов в хеш-таблицу */
-    unsigned int total_insertions;                                     /**< Счетчик общего количества вставок спортсменов в хеш-таблицу */
+    unsigned int collisions_cnt = 0;                                   /**< Счетчик коллизий при вставке спортсменов в хеш-таблицу */
+    unsigned int total_insertions = 0;                                 /**< Счетчик общего количества вставок спортсменов в хеш-таблицу */
 
     /**
      * @brief Конструктор по умолчанию
@@ -422,7 +422,7 @@ struct HashTable
         total_insertions++;
         for (int i = 0; i < buckets_indices[hash_value].size() - 1; ++i)
         {
-            if (buckets_indices[hash_value][i].first == value)
+            if (buckets_indices[hash_value][i].first != value)
             {
                 collisions_cnt++;
                 break;
