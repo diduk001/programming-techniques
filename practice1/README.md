@@ -1,4 +1,4 @@
-# Лабораторная работа 1:«Алгоритмы сортировок
+# Лабораторная работа 1: Алгоритмы сортировок
 
 ## Общее задание
 
@@ -38,3 +38,7 @@
 3) `make plot` - запускает скрипт [plot.py](./tests/plot.py), который отображает график на экране и сохраняет его в [sorting_performance.png](./sorting_performance.png)
 
 ![Sorting performance plot](./sorting_performance.png)
+
+# Отчет
+
+Отчет генерируется из ссылки на репозиторий, графика и документации скриптом [report.py](./tests/report.py) и сохраняется в [report.pdf](./report.pdf)
