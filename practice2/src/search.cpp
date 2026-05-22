@@ -6,6 +6,7 @@
 #include "search.h"
 #include "sportsman.h"
 
+#include <climits>
 #include <map>
 #include <vector>
 
@@ -366,5 +367,111 @@ std::vector<int> red_black_tree_search(const std::vector<Sportsman> &sportsmen, 
     }
     std::vector<int> indices;
     rbt.search_all(rbt.root, target, indices);
+    return indices;
+}
+
+/**
+ * @brief Функция хэширования спортсмена
+ * @param[value] Спортсмен для хэширования
+ * @return Хэш-значение ФИО спортсмена
+ */
+unsigned short hash_sportsman(const Sportsman &value)
+{
+    unsigned short result = 0;
+    for (int i = 0; i < value.full_name.first_name.size(); ++i)
+    {
+        result = result * 31 + value.full_name.first_name[i];
+    }
+    for (int i = 0; i < value.full_name.last_name.size(); ++i)
+    {
+        result = result * 35 + value.full_name.last_name[i];
+    }
+    for (int i = 0; i < value.full_name.middle_name.size(); ++i)
+    {
+        result = result * 39 + value.full_name.middle_name[i];
+    }
+
+    return result;
+}
+
+/**
+ * @struct HashTable
+ * @brief Хеш-таблица для хранения спортсменов и их индексов
+ */
+struct HashTable
+{
+    std::vector<std::pair<Sportsman, int>> buckets_indices[USHRT_MAX]; /**< Массив бакетов для хранения спортсменов и индексов */
+    unsigned int collisions_cnt;                                       /**< Счетчик коллизий при вставке спортсменов в хеш-таблицу */
+    unsigned int total_insertions;                                     /**< Счетчик общего количества вставок спортсменов в хеш-таблицу */
+
+    /**
+     * @brief Конструктор по умолчанию
+     */
+    HashTable() {}
+
+    /**
+     * @brief Вставляет спортсмена в хеш-таблицу
+     * @param[value] Спортсмен для вставки
+     * @param[index] Индекс спортсмена в исходном массиве
+     */
+    void insert(const Sportsman &value, int index)
+    {
+        unsigned int hash_value = hash_sportsman(value);
+        buckets_indices[hash_value].emplace_back(value, index);
+
+        total_insertions++;
+        for (int i = 0; i < buckets_indices[hash_value].size() - 1; ++i)
+        {
+            if (buckets_indices[hash_value][i].first == value)
+            {
+                collisions_cnt++;
+                break;
+            }
+        }
+    }
+
+    std::vector<int> search(const Sportsman &target)
+    {
+        std::vector<int> result;
+        unsigned int hash_value = hash_sportsman(target);
+        for (int i = 0; i < buckets_indices[hash_value].size(); ++i)
+        {
+            if (buckets_indices[hash_value][i].first == target)
+            {
+                result.push_back(buckets_indices[hash_value][i].second);
+            }
+        }
+        return result;
+    }
+
+    double get_collisions_rate() const
+    {
+        return (double)collisions_cnt / total_insertions;
+    }
+};
+
+std::vector<int> hash_table_search(const std::vector<Sportsman> &sportsmen, const Sportsman &target)
+{
+    HashTable ht;
+    for (int i = 0; i < (int)sportsmen.size(); ++i)
+    {
+        ht.insert(sportsmen[i], i);
+    }
+    return ht.search(target);
+}
+
+std::vector<int> multimap_search(const std::vector<Sportsman> &sportsmen, const Sportsman &target)
+{
+    std::multimap<Sportsman, int> mmap;
+    for (int i = 0; i < (int)sportsmen.size(); ++i)
+    {
+        mmap.insert({sportsmen[i], i});
+    }
+    std::vector<int> indices;
+    auto range = mmap.equal_range(target);
+    for (std::multimap<Sportsman, int>::iterator it = range.first; it != range.second; ++it)
+    {
+        indices.push_back(it->second);
+    }
     return indices;
 }
