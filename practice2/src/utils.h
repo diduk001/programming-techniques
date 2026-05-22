@@ -32,4 +32,4 @@ void to_csv_file(const std::vector<Sportsman> &data, const std::string &filename
  * @param source Вектор спортсменов для поиска
  * @return Время поиска (в миллисекундах)
  */
-double measure_time_ms(std::function<std::vector<int>(std::vector<Sportsman> &)> find_func, const std::vector<Sportsman> &source);
+double measure_time_ms(std::function<std::vector<int>(std::vector<Sportsman> &, const Sportsman &)> find_func, const std::vector<Sportsman> &source, const Sportsman &target);

@@ -37,11 +37,11 @@ void to_csv_file(const std::vector<Sportsman> &data, const std::string &filename
     }
 }
 
-double measure_time_ms(std::function<std::vector<int>(std::vector<Sportsman> &)> find_func, const std::vector<Sportsman> &source)
+double measure_time_ms(std::function<std::vector<int>(std::vector<Sportsman> &, const Sportsman &)> find_func, const std::vector<Sportsman> &source, const Sportsman &target)
 {
     auto copy = source;
     auto start = std::chrono::high_resolution_clock::now();
-    find_func(copy);
+    find_func(copy, target);
     auto end = std::chrono::high_resolution_clock::now();
     double time = std::chrono::duration<double, std::milli>(end - start).count();
     return time;
