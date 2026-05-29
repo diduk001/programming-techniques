@@ -60,7 +60,7 @@ void ShiftRows(uint8_t state[4][4]);
  */
 void AddKey(uint8_t state[4][4]);
 
-struct AESPrng
+struct AES_PRNG
 {
     uint8_t state[4][4]; //!< Матрица состояния 4x4
 
@@ -68,7 +68,7 @@ struct AESPrng
      * @brief Инициализировать генератор с помощью начального значения (seed)
      * @param seed Начальное значение (16 байт)
      */
-    AESPrng(const uint8_t seed[16]);
+    AES_PRNG(const uint8_t seed[16]);
 
     /**
      * @brief Сгенерировать псевдослучайное число, выполняя 10 раундов алгоритма AES

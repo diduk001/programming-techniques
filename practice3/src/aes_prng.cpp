@@ -47,7 +47,7 @@ void AddKey(uint8_t state[4][4])
     }
 }
 
-AESPrng::AESPrng(const uint8_t seed[16])
+AES_PRNG::AES_PRNG(const uint8_t seed[16])
 {
     // Инициализируем состояние из seed
     for (int i = 0; i < 4; i++)
@@ -59,7 +59,7 @@ AESPrng::AESPrng(const uint8_t seed[16])
     }
 }
 
-void AESPrng::generate(uint8_t output[16])
+void AES_PRNG::generate(uint8_t output[16])
 {
     for (int round = 0; round < 10; round++)
     {
