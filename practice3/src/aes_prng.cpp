@@ -1,6 +1,6 @@
 #include "aes_prng.h"
 
-uint8_t SubBytes(uint8_t state[4][4])
+void SubBytes(uint8_t state[4][4])
 {
     for (int i = 0; i < 4; i++)
     {

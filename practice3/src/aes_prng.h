@@ -45,7 +45,7 @@ static const uint8_t sbox[256] = {
  * @brief Заменить каждый байт из State на соответствующий байт согласно S
  * @param state Входная матрица состояния 4x4
  */
-uint8_t SubBytes(uint8_t state[4][4]);
+void SubBytes(uint8_t state[4][4]);
 
 /**
  * @brief Циклически сдвинуть влево вторую строку матрицы на 1, третью - на 2 и четвертую - на 3
