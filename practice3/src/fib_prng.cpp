@@ -2,8 +2,8 @@
 
 uint64_t FibonacciPRNG::next()
 {
-    uint64_t next_value = (A * A) ^ (B * B); // Вычисляем следующее значение по формуле A^2 ^ B^2
-    A = B;                                   // Обновляем A
-    B = next_value;                          // Обновляем B
-    return B;                                // Возвращаем новое значение B как псевдослучайное число
+    uint64_t next_value = (A * A) + ((B * B) << 17 | (B * B) >> 47);
+    A = B;
+    B = next_value;
+    return B;
 }
