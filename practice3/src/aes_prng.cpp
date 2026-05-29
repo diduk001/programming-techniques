@@ -1,5 +1,7 @@
 #include "aes_prng.h"
 
+#include <vector>
+
 void SubBytes(uint8_t state[4][4])
 {
     for (int i = 0; i < 4; i++)
@@ -75,4 +77,24 @@ void AES_PRNG::generate(uint8_t output[16])
             output[i * 4 + j] = state[i][j];
         }
     }
+}
+
+std::vector<uint64_t> generate_aes_sample(const uint8_t seed[16], size_t size)
+{
+    AES_PRNG prng(seed);
+    std::vector<uint64_t> sample(size);
+
+    for (size_t i = 0; i < size; i++)
+    {
+        uint8_t output[16];
+        prng.generate(output);
+        // Преобразуем первые 8 байт в uint64_t
+        sample[i] = 0;
+        for (int j = 0; j < 8; j++)
+        {
+            sample[i] = (sample[i] << 8) | output[j];
+        }
+    }
+
+    return sample;
 }

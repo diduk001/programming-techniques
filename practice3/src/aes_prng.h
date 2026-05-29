@@ -16,6 +16,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 static const uint8_t key[4][4] = {
     {0x72, 0xdd, 0xcb, 0x1f},
@@ -76,3 +77,11 @@ struct AES_PRNG
      */
     void generate(uint8_t output[16]);
 };
+
+/**
+ * @brief Найти выборку по seed
+ * @param seed Начальное значение (16 байт)
+ * @param size Размер выборки
+ * @return Вектор с выборкой, сгенерированной на основе seed
+ */
+std::vector<uint64_t> generate_aes_sample(const uint8_t seed[16], size_t size);

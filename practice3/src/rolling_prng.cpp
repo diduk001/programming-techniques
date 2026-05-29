@@ -1,5 +1,7 @@
 #include "rolling_prng.h"
 
+#include <vector>
+
 RollingPRNG::RollingPRNG(const uint8_t seed[8])
 {
     for (int i = 0; i < 8; i++)
@@ -26,4 +28,15 @@ uint64_t RollingPRNG::next()
     state[0] = X % 256;
 
     return X;
+}
+
+std::vector<uint64_t> generate_rolling_sample(const uint8_t seed[8], size_t num_samples)
+{
+    std::vector<uint64_t> sample(num_samples);
+    RollingPRNG prng(seed);
+    for (size_t i = 0; i < num_samples; i++)
+    {
+        sample[i] = prng.next();
+    }
+    return sample;
 }

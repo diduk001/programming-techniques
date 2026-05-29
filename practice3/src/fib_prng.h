@@ -10,6 +10,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 const uint64_t A_initial = 0x123456789abcdef0; //!< Изначальный параметр генератора
 
@@ -25,3 +26,11 @@ struct FibonacciPRNG
      */
     uint64_t next();
 };
+
+/**
+ * @brief Найти выборку по seed
+ * @param seed Начальное значение (16 байт)
+ * @param num_samples Размер выборки
+ * @return Вектор с выборкой, сгенерированной на основе seed
+ */
+std::vector<uint64_t> generate_fib_sample(uint64_t seed, size_t num_samples);

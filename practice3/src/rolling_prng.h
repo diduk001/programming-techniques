@@ -13,6 +13,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 struct RollingPRNG
 {
@@ -27,3 +28,12 @@ struct RollingPRNG
      */
     uint64_t next();
 };
+
+
+/**
+ * @brief Найти выборку по seed
+ * @param seed Начальное значение (8 байт)
+ * @param num_samples Размер выборки
+ * @return Вектор с выборкой, сгенерированной на основе seed
+ */
+std::vector<uint64_t> generate_rolling_sample(const uint8_t seed[8], size_t num_samples);
