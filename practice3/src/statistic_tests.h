@@ -39,9 +39,9 @@ long double cv(const std::vector<uint64_t> &data);
 long double chi_square_uniformity_test(const std::vector<uint64_t> &data, int num_bins);
 
 /**
- * @brief Проведение теста на случайность выборки с помощью критерия Хи-квадрат
- * @param data Вектор с данными выборки
+ * @brief Проверить, соответствует ли выборка распределению, близкому к равномерному
+ * @param chiSquare Значение статистики Хи-квадрат
  * @param num_bins Количество интервалов (корзин) для разбиения данных
- * @return Значение статистики Хи-квадрат для теста на случайность
+ * @return true, если выборка соответствует равномерному распределению, иначе false
  */
-long double chi_square_randomness_test(const std::vector<uint64_t> &data, int num_bins);
+bool isUniform(long double chiSquare, int num_bins);

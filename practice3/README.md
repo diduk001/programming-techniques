@@ -32,3 +32,28 @@
 2. seed побайтово складывается с заранее заданными случайными 8 байтами, чтобы получить состояние State
 3. Псевдослучайное число X возвращается как (State[0] + State[1] * P + State[2] * P * P + ... + State[7] * (P^7))
 4. State меняется как State[1] = State[0], State[2] = State[1], ..., State[7] = State[6], State[0] = X % 256
+
+## Выводы
+
+### Статистические тесты:
+
+```
+AES PRNG Sample Statistics:
+        Mean: 9049916445308451840.000000
+        Standard Deviation: 5417481741576773632.000000
+        Coefficient of Variation: 0.598622
+        Chi-Square Uniformity Test: 230.120000
+        Chi-Square Randomness Test: 229.864432
+Fibonacci PRNG Sample Statistics:
+        Mean: 9100382243254511616.000000
+        Standard Deviation: 5359591363064619008.000000
+        Coefficient of Variation: 0.588941
+        Chi-Square Uniformity Test: 21.200000
+        Chi-Square Randomness Test: 20.939970
+Rolling PRNG Sample Statistics:
+        Mean: 9448805375811250176.000000
+        Standard Deviation: 5412300827313358848.000000
+        Coefficient of Variation: 0.572803
+        Chi-Square Uniformity Test: 118.540000
+        Chi-Square Randomness Test: 118.248624
+```
