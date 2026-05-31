@@ -39,21 +39,38 @@
 
 ```
 AES PRNG Sample Statistics:
-        Mean: 9049916445308451840.000000
-        Standard Deviation: 5417481741576773632.000000
-        Coefficient of Variation: 0.598622
-        Chi-Square Uniformity Test: 230.120000
-        Chi-Square Randomness Test: 229.864432
+        Mean: 9053930279102768128.000000
+        Standard Deviation: 5419451002270816256.000000
+        Coefficient of Variation: 0.598574
+        Chi-Square Uniformity Test: 2297.066000
+        Chi-Square Randomness Test: 0
+p-value for NIST tests: 
+        Frequency Test: 0.000000
+        Block Frequency Test: 0.000000
+        Runs Test: 0.000000
+        Longest Run Test: 0.000000
+
 Fibonacci PRNG Sample Statistics:
-        Mean: 9100382243254511616.000000
-        Standard Deviation: 5359591363064619008.000000
-        Coefficient of Variation: 0.588941
-        Chi-Square Uniformity Test: 21.200000
-        Chi-Square Randomness Test: 20.939970
+        Mean: 9249605030853058560.000000
+        Standard Deviation: 5355264365073776640.000000
+        Coefficient of Variation: 0.578972
+        Chi-Square Uniformity Test: 19.576000
+        Chi-Square Randomness Test: 1
+p-value for NIST tests: 
+        Frequency Test: 0.545461
+        Block Frequency Test: 0.504522
+        Runs Test: 0.972948
+        Longest Run Test: 0.016950
+
 Rolling PRNG Sample Statistics:
-        Mean: 9448805375811250176.000000
-        Standard Deviation: 5412300827313358848.000000
-        Coefficient of Variation: 0.572803
-        Chi-Square Uniformity Test: 118.540000
-        Chi-Square Randomness Test: 118.248624
+        Mean: 9441715994641999872.000000
+        Standard Deviation: 5411431557224493056.000000
+        Coefficient of Variation: 0.573141
+        Chi-Square Uniformity Test: 1075.498000
+        Chi-Square Randomness Test: 0
+p-value for NIST tests: 
+        Frequency Test: 0.000000
+        Block Frequency Test: 0.999971
+        Runs Test: 0.000000
+        Longest Run Test: 0.000000
 ```
