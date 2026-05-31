@@ -2,7 +2,7 @@
 
 build:
 	mkdir -p bin
-	g++ -o bin/main src/main.cpp src/aes_prng.cpp src/fib_prng.cpp src/rolling_prng.cpp src/statistc_tests.cpp
+	g++ -o bin/main src/main.cpp src/aes_prng.cpp src/fib_prng.cpp src/rolling_prng.cpp src/statistc_tests.cpp src/prng_tests.cpp
 
 run: build
 	./bin/main
