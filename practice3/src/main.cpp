@@ -3,12 +3,13 @@
 #include "rolling_prng.h"
 
 #include "statistic_tests.h"
+#include "prng_tests.h"
 
 #include <cstdio>
 #include <iostream>
 #include <vector>
 
-const int NUM_SAMPLES = 2000; // Количество сгенерированных чисел для статистических тестов
+const int NUM_SAMPLES = 20000; // Количество сгенерированных чисел для статистических тестов
 const int NUM_BINS = 20;      // Количество корзин для тестов Хи-квадрат
 
 const uint8_t seed_16[16] = {
@@ -45,7 +46,14 @@ int main()
     std::cout << "\tStandard Deviation: " << stddev(aes_sample) << std::endl;
     std::cout << "\tCoefficient of Variation: " << cv(aes_sample) << std::endl;
     std::cout << "\tChi-Square Uniformity Test: " << chi_square_uniformity_test(aes_sample, NUM_BINS) << std::endl;
-    std::cout << "\tChi-Square Randomness Test: " << chi_square_randomness_test(aes_sample, NUM_BINS) << std::endl;
+    std::cout << "\tChi-Square Randomness Test: " << isUniform(chi_square_uniformity_test(aes_sample, NUM_BINS), NUM_BINS) << std::endl;
+
+    std::cout << "p-value for NIST tests: " << std::endl;
+    std::cout << "\tFrequency Test: " << frequencyTest(aes_sample) << std::endl;
+    std::cout << "\tBlock Frequency Test: " << blockFrequencyTest(aes_sample, 100) << std::endl;
+    std::cout << "\tRuns Test: " << runsTest(aes_sample) << std::endl;
+    std::cout << "\tLongest Run Test: " << longestRunTest(aes_sample) << std::endl;
+    std::cout << std::endl;
 
     std::vector<uint64_t> fib_sample = generate_fib_sample(uint64_t_seed, NUM_SAMPLES);
 
@@ -54,7 +62,14 @@ int main()
     std::cout << "\tStandard Deviation: " << stddev(fib_sample) << std::endl;
     std::cout << "\tCoefficient of Variation: " << cv(fib_sample) << std::endl;
     std::cout << "\tChi-Square Uniformity Test: " << chi_square_uniformity_test(fib_sample, NUM_BINS) << std::endl;
-    std::cout << "\tChi-Square Randomness Test: " << chi_square_randomness_test(fib_sample, NUM_BINS) << std::endl;
+    std::cout << "\tChi-Square Randomness Test: " << isUniform(chi_square_uniformity_test(fib_sample, NUM_BINS), NUM_BINS) << std::endl;
+
+    std::cout << "p-value for NIST tests: " << std::endl;
+    std::cout << "\tFrequency Test: " << frequencyTest(fib_sample) << std::endl;
+    std::cout << "\tBlock Frequency Test: " << blockFrequencyTest(fib_sample, 100) << std::endl;
+    std::cout << "\tRuns Test: " << runsTest(fib_sample) << std::endl;
+    std::cout << "\tLongest Run Test: " << longestRunTest(fib_sample) << std::endl;
+    std::cout << std::endl;
 
     std::vector<uint64_t> rolling_sample = generate_rolling_sample(seed_8, NUM_SAMPLES);
 
@@ -63,7 +78,14 @@ int main()
     std::cout << "\tStandard Deviation: " << stddev(rolling_sample) << std::endl;
     std::cout << "\tCoefficient of Variation: " << cv(rolling_sample) << std::endl;
     std::cout << "\tChi-Square Uniformity Test: " << chi_square_uniformity_test(rolling_sample, NUM_BINS) << std::endl;
-    std::cout << "\tChi-Square Randomness Test: " << chi_square_randomness_test(rolling_sample, NUM_BINS) << std::endl;
+    std::cout << "\tChi-Square Randomness Test: " << isUniform(chi_square_uniformity_test(rolling_sample, NUM_BINS), NUM_BINS) << std::endl;
+
+    std::cout << "p-value for NIST tests: " << std::endl;
+    std::cout << "\tFrequency Test: " << frequencyTest(rolling_sample) << std::endl;
+    std::cout << "\tBlock Frequency Test: " << blockFrequencyTest(rolling_sample, 100) << std::endl;
+    std::cout << "\tRuns Test: " << runsTest(rolling_sample) << std::endl;
+    std::cout << "\tLongest Run Test: " << longestRunTest(rolling_sample) << std::endl;
+    std::cout << std::endl;
 
     return 0;
 }
