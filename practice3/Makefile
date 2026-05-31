@@ -15,6 +15,9 @@ time: build
 plot: time
 	python3 tests/plot.py
 
+report:
+	python3 tests/report.py
+
 clean:
 	rm -rf bin/*
 	rm -rf tests/results
